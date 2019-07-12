@@ -51,6 +51,15 @@ public class OrderController {
 
 	}
 
+	
+	@ResponseBody
+	@RequestMapping("/orderBatchStart.json")
+	public JsonData orderBatchStart(String ids) {
+		orderService.batchStart(ids);
+		return JsonData.success();
+	}
+	
+	
 	@RequestMapping("/update.json")
 	@ResponseBody
 	public JsonData updateOrder(MesOrderVo mesOrderVo) {

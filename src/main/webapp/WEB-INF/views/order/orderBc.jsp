@@ -9,7 +9,7 @@
 <%@ include file="/common/backend_common.jsp" %>
 <%@ include file="/common/page.jsp" %>
 <%@ include file="/template/order/orderListTemplate.jsp" %>
-<script src="orderBatch.js"></script> 
+<script src="orderBc.js"></script> 
 <%-- <jsp:include page="orderJs.jsp" />
  --%>
 </head>
@@ -45,16 +45,14 @@
 									</label> <input id="keyword" type="search" name="keyword"
 										class="form-control input-sm" placeholder="关键词"
 										aria-controls="dynamic-table"> <label>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是否启用 
-									<input type="hidden" name="search_status" id="search_status" value="0"/>
-									<!-- 
-									<select
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是否启用 <select
 										id="search_status" name="search_status"
 										aria-controls="dynamic-table" class="form-control input-sm">
-											<option value="0">未启动</option>
 											<option value="1">已启动</option>
+											<option value="0">未启动</option>
 									</select>
-									-->
+									</label>
+								
 									</label> <input id="fromTime" type="search" name="fromTime"
 										class="form-control input-sm datepicker" placeholder="开始时间"
 										aria-controls="dynamic-table"> ~ <input id="toTime"
@@ -64,9 +62,9 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;
 									<button class="btn btn-info fa fa-check research"
 										style="margin-bottom: 6px;" type="button">刷新</button>
-									&nbsp;&nbsp;&nbsp;&nbsp;
+									<!-- &nbsp;&nbsp;&nbsp;&nbsp;
 									<button class="btn btn-info fa fa-check batchStart-btn"
-										style="margin-bottom: 6px;" type="button">批量启动</button>
+										style="margin-bottom: 6px;" type="button">批量启动</button> -->
 								</div>
 							</div>
 
@@ -109,8 +107,8 @@
 			</div>
 		</div>
 	</div>
+	<%@ include file="orderForm/orderUpdateForm.jsp" %>
+	<%@ include file="orderForm/orderFrom.jsp" %>
 	
-	<%@ include file="orderBatchForm.jsp" %>
-	<script type="text/javascript" src="orderBatch.js"></script>
 </body>
 </html>

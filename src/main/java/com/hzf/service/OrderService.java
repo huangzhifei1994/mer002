@@ -15,6 +15,7 @@ import com.hzf.exception.SysMineException;
 import com.hzf.service.OrderService.IdGenerator;
 import com.hzf.dao.MesOrderCustomerMapper;
 import com.google.common.base.Preconditions;
+
 import com.hzf.beans.PageQuery;
 import com.hzf.beans.PageResult;
 import com.hzf.dto.SearchOrderDto;
@@ -34,11 +35,16 @@ private SqlSession sqlSession;
 private MesOrderCustomerMapper mesOrderCustomerMapper;
 
 private IdGenerator ig=new IdGenerator();
+
+
 public void batchStart(String ids) {
 	// 144&143--order(id)
 	if (ids != null && ids.length() > 0) {
 		// 批量处理的sqlSession代理
 		String[] idArray = ids.split("&");
+       mesOrderCustomerMapper.batchStart(idArray);
+		
+//		planService.startPlansByOrderIds(idArray);
 		
 	}
 	
@@ -104,7 +110,7 @@ public void orderBatchInserts(MesOrderVo mesOrderVo) {
 
 	BeanValidator.check(mesOrderVo);
 	Integer counts = mesOrderVo.getCount();
-	System.out.println(counts);
+
 	List<String> ids = createOrderIdsDefault(Long.valueOf(counts));
 	//set DIY id 
 	OrderMapper mesOrderBatchMapper = sqlSession.getMapper(OrderMapper.class);
@@ -127,9 +133,10 @@ public void orderBatchInserts(MesOrderVo mesOrderVo) {
 			mesOrder.setOrderOperator("tom");
 			mesOrder.setOrderOperateIp("127.0.0.1");
 			mesOrder.setOrderOperateTime(new Date());
-			
+//			if(mesOrder.getOrderStatus()==1) {
+//			planService.prePlan(mesOrder);
+//			}
 			mesOrderBatchMapper.insertSelective(mesOrder);
-			
 		} catch (Exception e) {
 			throw new SysMineException("创建过程有问题");
 		}
@@ -203,6 +210,7 @@ class IdGenerator{
 		return this.ids;
 	}
 
+	
 
 	public void setCurrentdbidscount(Long orderCount) {
 //		this.currentdbidscount=currentdbidscount;

@@ -8,7 +8,7 @@
 <jsp:include page="/template/orderListTemplate.jsp" /> --%>
 <%@ include file="/common/backend_common.jsp" %>
 <%@ include file="/common/page.jsp" %>
-<%@ include file="/template/order/orderBatchTemplate.jsp" %>
+<%@ include file="/template/order/orderBatchListTemplate.jsp" %>
 <script src="orderBatch.js"></script> 
 <%-- <jsp:include page="orderJs.jsp" />
  --%>

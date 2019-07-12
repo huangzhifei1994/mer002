@@ -148,10 +148,10 @@ $(function() {//页面开始加载
 				//弹出框
 				$("#dialog-order-form").dialog(
 						{
-							modal : true,//背景不可点击
+							model : true,//背景不可点击
 							title : "新建订单",//模态框标题
 							open : function(event, ui) {
-								$(".ui-dialog").css("width", "300px");//增加模态框的宽高
+								$(".ui-dialog").css("width", "700px");//增加模态框的宽高
 								$(".ui-dialog-titlebar-close",
 										$(this).parent()).hide();//关闭默认叉叉
 								optionStr = "";
@@ -172,7 +172,7 @@ $(function() {//页面开始加载
 			                         	loadOrderList();//根据参数查看
 									}, function(data) {
 										//增加失败了
-															alert("添加失败了");
+										//						alert("添加失败了");
 										//信息显示
 										showMessage("新增订单", data.msg,
 												false);
@@ -256,7 +256,6 @@ $(function() {//页面开始加载
 				data : isCreate ? $("#orderForm").serializeArray() : $(
 						"#orderUpdateForm").serializeArray(),
 				type : 'POST',
-			
 				success : function(result) {
 					//数据执行成功返回的消息
 					if (result.ret) {
@@ -264,7 +263,6 @@ $(function() {//页面开始加载
 						//带参数回调
 						if (successCallbak) {
 							successCallbak(result);
-							
 						}
 					} else {
 						//执行失败后返回的内容
@@ -273,11 +271,8 @@ $(function() {//页面开始加载
 						}
 					}
 				}
-		  
-				  
 			});
-		
-		 }
+		}
 		//////////////////////////////////////////////////////////////
 			//日期显示
 			$('.datepicker').datepicker({
