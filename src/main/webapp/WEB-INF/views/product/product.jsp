@@ -1,24 +1,23 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
 <head>
-<title>订单操作</title>
+<title>计划管理</title>
 <!-- jsp动态导入 -->
 <%-- <jsp:include page="/common/backend_common.jsp" />
 <jsp:include page="/common/page.jsp" />
 <jsp:include page="/template/orderListTemplate.jsp" /> --%>
 <%@ include file="/common/backend_common.jsp" %>
 <%@ include file="/common/page.jsp" %>
-<%@ include file="/template/order/orderListTemplate.jsp" %>
-<script src="orderBc.js"></script> 
-<%-- <jsp:include page="orderJs.jsp" />
- --%>
+<%@ include file="/template/product/productListTemplate.jsp" %>
+<script src="product.js"></script> 
 </head>
 <body class="no-skin" youdao="bind" style="background: white">
 	<input id="gritter-light" checked="" type="checkbox"
 		class="ace ace-switch ace-switch-5" />
 	<div class="page-header">
 		<h1>
-			订单操作 <small><i class="ace-icon fa fa-angle-double-right"></i>
+			材料管理 <small><i class="ace-icon fa fa-angle-double-right"></i>
 				创建与查询 </small>
 		</h1>
 	</div>
@@ -26,44 +25,51 @@
 		<div class="col-sm-12">
 			<div class="col-xs-12">
 				<div class="table-header">
-					订单列表&nbsp;&nbsp;<a class="green" href="#"> 
-					</a>
-				</div>
+					材料列表&nbsp;&nbsp; <!-- <a class="green" href="#"> <i
+						class="ace-icon fa fa-plus-circle orange bigger-130 order-add"></i>
+					</a>-->
+				</div> 
 				<div>
 					<div id="dynamic-table_wrapper"
 						class="dataTables_wrapper form-inline no-footer">
 						<div class="row">
-
 							<div class="col-xs-12">
 								<div class="dataTables_length" id="dynamic-table_length">
 									<label> 展示 <select id="pageSize"
 										name="dynamic-table_length" aria-controls="dynamic-table"
 										class="form-control input-sm">
-											<option value="10">10</option>
+											<option value="8">8</option>
 									</select> 条记录
 									</label> <input id="keyword" type="search" name="keyword"
 										class="form-control input-sm" placeholder="关键词"
-										aria-controls="dynamic-table"> <label>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是否启用 <select
-										id="search_status" name="search_status"
-										aria-controls="dynamic-table" class="form-control input-sm">
-											<option value="1">已启动</option>
-											<option value="0">未启动</option>
-									</select>
-									</label>
-								
-									</label> <input id="fromTime" type="search" name="fromTime"
-										class="form-control input-sm datepicker" placeholder="开始时间"
-										aria-controls="dynamic-table"> ~ <input id="toTime"
-										type="search" name="toTime"
-										class="form-control input-sm datepicker" placeholder="结束时间"
 										aria-controls="dynamic-table">
+										<input type="hidden" value="0" name="search_status" id="search_status"/>
+									  
+									 <label>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;材料来源 <select
+										id="search_msource" name="search_msource"
+										aria-controls="dynamic-table" class="form-control input-sm">
+											<option value=""></option>
+											<option value="废料">废料</option>
+											<option value="外协件">外协件</option>
+											<option value="外购件">外购件</option>
+											<option value="钢材">钢材</option>
+									</select>
+									</label> 
+								
+										
 									&nbsp;&nbsp;&nbsp;&nbsp;
 									<button class="btn btn-info fa fa-check research"
 										style="margin-bottom: 6px;" type="button">刷新</button>
-									<!-- &nbsp;&nbsp;&nbsp;&nbsp;
+								</div>
+							</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="dataTables_length" id="dynamic-table_length">
+									
+									
 									<button class="btn btn-info fa fa-check batchStart-btn"
-										style="margin-bottom: 6px;" type="button">批量启动</button> -->
+										style="margin-bottom: 6px;" type="button">批量到库</button>
 								</div>
 							</div>
 
@@ -75,39 +81,48 @@
 							<thead>
 								<tr role="row">
 									<input type="hidden" id="id" name="id" class="id" />
-									
 									<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
-										colspan="1">产品自编号</th>
+										colspan="1" class="batchStart-th">选择</th>		
 									<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
-										colspan="1">产品名称</th>
+										colspan="1">材料自编号</th>
 									<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
-										colspan="1">图号</th>
+										colspan="1">父级自编号</th>
 									<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
 										colspan="1">材料名称</th>
 									<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
 										colspan="1">材料来源</th>
 									<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
-										colspan="1">来料预期</th>
+										colspan="1">工艺重量</th>
 									<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
-										colspan="1">合同交期</th>
+										colspan="1">投料重量</th>
+									<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
+										colspan="1">剩余重量</th>
+									<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
+										colspan="1">图号</th>
+									<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
+										colspan="1">钢锭类型</th>
+									<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
+										colspan="1">锭型</th>
+									
 									<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
 										colspan="1">状态</th>
 									<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
 										colspan="1">备注</th>
-									<th class="sorting_disabled" rowspan="1" colspan="1"
-										aria-label="">操作</th>
+										<th tabindex="0" aria-controls="dynamic-table" rowspan="1"
+										colspan="1">炉号</th>
+									 <th class="sorting_disabled" rowspan="1" colspan="1"
+										aria-label="">修改</th> 
 								</tr>
 							</thead>
-							<tbody id="orderList"></tbody>
+						 <tbody id="productList"></tbody>
 						</table>
-						<div class="row" id="orderPage"></div>
-					</div>
+						<div class="row" id="productPage"></div>
+					</div> 
 				</div>
 			</div>
 		</div>
 	</div>
-	<%@ include file="orderForm/orderUpdateForm.jsp" %>
-	<%@ include file="orderForm/orderFrom.jsp" %>
-	
+	<%@ include file="productFrom/productUpdateForm.jsp" %>
+	<%@ include file="productFrom/productForm.jsp" %>
 </body>
 </html>

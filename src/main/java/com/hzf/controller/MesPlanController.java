@@ -10,6 +10,7 @@ import com.hzf.beans.PageQuery;
 import com.hzf.beans.PageResult;
 import com.hzf.common.JsonData;
 import com.hzf.model.MesPlan;
+import com.hzf.param.MesPlanVo;
 import com.hzf.param.SearchPlanParam;
 import com.hzf.service.PlanService;
 
@@ -35,5 +36,17 @@ public String planStartedPage() {
 public JsonData searchPage(SearchPlanParam param, PageQuery page) {
 	PageResult<MesPlan> pr=(PageResult<MesPlan>) planService.searchPageList(param, page);
 	return JsonData.success(pr);
+}
+@ResponseBody
+@RequestMapping("/planBatchStart.json")
+public JsonData planBatchStart(String ids) {
+	planService.batchStartWithIds(ids);
+	return JsonData.success();
+}
+@RequestMapping("/update.json")
+@ResponseBody
+public JsonData updatePlan(MesPlanVo mesPlanVo) {
+	planService.update(mesPlanVo);
+	return JsonData.success();
 }
 }

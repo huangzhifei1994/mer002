@@ -10,7 +10,7 @@
  
  	<!-- 启动包扫描功能 -->
     <context:component-scan base-package="com.hzf.controller" />
-    <context:component-scan base-package="com.hzf.service" />
+	<context:component-scan base-package="com.hzf.service" />
     
  	<mvc:resources location="/js/" mapping="/js/**"/>
     <mvc:resources location="/css/" mapping="/css/**"/>
@@ -19,6 +19,7 @@
     <mvc:resources location="/ztree/" mapping="/ztree/**"/>
     <mvc:resources location="/WEB-INF/views/order/" mapping="/order/**"/>
     <mvc:resources location="/WEB-INF/views/plan/" mapping="/plan/**"/> 
+    <mvc:resources location="/WEB-INF/views/product/" mapping="/product/**"/> 
    <bean class="com.hzf.common.SpringExceptionResolver"></bean>
 	<!-- 配置视图解析器 -->
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />

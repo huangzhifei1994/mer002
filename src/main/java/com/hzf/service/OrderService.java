@@ -33,6 +33,8 @@ private OrderMapper mesOrderMapper;
 private SqlSession sqlSession;
 @Resource
 private MesOrderCustomerMapper mesOrderCustomerMapper;
+@Resource
+private PlanService planService;
 
 private IdGenerator ig=new IdGenerator();
 
@@ -44,7 +46,7 @@ public void batchStart(String ids) {
 		String[] idArray = ids.split("&");
        mesOrderCustomerMapper.batchStart(idArray);
 		
-//		planService.startPlansByOrderIds(idArray);
+		planService.startPlansByOrderIds(idArray);
 		
 	}
 	
@@ -128,14 +130,14 @@ public void orderBatchInserts(MesOrderVo mesOrderVo) {
 					.orderHurrystatus(mesOrderVo.getOrderHurrystatus()).orderStatus(mesOrderVo.getOrderStatus())
 					.orderRemark(mesOrderVo.getOrderRemark()).build();
 
-		
+		System.out.println("lll");
 			// TODO
 			mesOrder.setOrderOperator("tom");
 			mesOrder.setOrderOperateIp("127.0.0.1");
 			mesOrder.setOrderOperateTime(new Date());
-//			if(mesOrder.getOrderStatus()==1) {
-//			planService.prePlan(mesOrder);
-//			}
+			if(mesOrder.getOrderStatus()==1) {
+			planService.prePlan(mesOrder);
+			}
 			mesOrderBatchMapper.insertSelective(mesOrder);
 		} catch (Exception e) {
 			throw new SysMineException("创建过程有问题");

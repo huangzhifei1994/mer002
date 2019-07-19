@@ -60,10 +60,10 @@ public class PlanService {
 	public void prePlan(Order mesOrder) {
 		// 批量处理
 		MesPlanMapper planMapper = sqlSession.getMapper(MesPlanMapper.class);
-		MesPlan mesPlan =MesPlan.builder().planOrderid(mesOrder.getOrderId()).planProductname(mesOrder.getOrderProductname())//
-				.planClientname(mesOrder.getOrderClientname()).planContractid(mesOrder.getOrderContractid()).planImgid(mesOrder.getOrderImgid())//
-				.planMaterialname(mesOrder.getOrderMaterialname()).planCurrentstatus("计划").planCurrentremark("计划待执行").planSalestatus(mesOrder.getOrderSalestatus())//
-				.planMaterialsource(mesOrder.getOrderMaterialsource()).planHurrystatus(mesOrder.getOrderHurrystatus()).planStatus(0).planCometime(mesOrder.getOrderCometime())//
+		MesPlan mesPlan =MesPlan.builder().planOrderid(mesOrder.getOrderId()).planProductname(mesOrder.getOrderProductname())
+				.planClientname(mesOrder.getOrderClientname()).planContractid(mesOrder.getOrderContractid()).planImgid(mesOrder.getOrderImgid())
+				.planMaterialname(mesOrder.getOrderMaterialname()).planCurrentstatus("计划").planCurrentremark("计划待执行").planSalestatus(mesOrder.getOrderSalestatus())
+				.planMaterialsource(mesOrder.getOrderMaterialsource()).planHurrystatus(mesOrder.getOrderHurrystatus()).planStatus(0).planCometime(mesOrder.getOrderCometime())
 				.planCommittime(mesOrder.getOrderCommittime()).planInventorystatus(mesOrder.getOrderInventorystatus()).build();
 		mesPlan.setPlanOperator("user01");
 		mesPlan.setPlanOperateIp("127.0.0.1");
@@ -92,11 +92,11 @@ public class PlanService {
 				mesPlan.setPlanCurrentremark("计划已启动");
 				mapper.updateByPrimaryKeySelective(mesPlan);
 				
-				//半成品材料 生成
-				MesPlan plan=mesPlanMapper.selectByPrimaryKey(Integer.parseInt(idsTemp[i]));
-				//产生半成品材料
-				String orderid=plan.getPlanOrderid();
-				Order order=mesOrderCustomerMapper.selectByOrderId(orderid);
+//				//半成品材料 生成
+//				MesPlan plan=mesPlanMapper.selectByPrimaryKey(Integer.parseInt(idsTemp[i]));
+//				//产生半成品材料
+//				String orderid=plan.getPlanOrderid();
+//				Order order=mesOrderCustomerMapper.selectByOrderId(orderid);
 				//product
 //				MesProduct mesProduct=MesProduct.builder().productId(UUIDUtil.generateUUID())//
 //						.productOrderid(order.getId()).productPlanid(plan.getId())//
